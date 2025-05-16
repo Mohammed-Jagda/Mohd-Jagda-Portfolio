@@ -1,0 +1,71 @@
+/* Leadership.css */
+
+.leadership-section {
+  background: #fdfdfd;
+  max-width: 960px;
+  margin: 50px auto;
+  padding: 40px 20px;
+  border-radius: 10px;
+  box-shadow: 0 14px 28px rgba(0,0,0,0.1);
+  font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+}
+
+.leadership-section h2 {
+  font-size: 2.5rem;
+  font-weight: 800;
+  text-align: center;
+  margin-bottom: 40px;
+  color: #222;
+  letter-spacing: 1px;
+}
+
+.cards-container {
+  display: grid;
+  gap: 28px;
+  grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+}
+
+.activity-card {
+  background: #fff;
+  border-radius: 12px;
+  padding: 25px 20px 30px 20px;
+  box-shadow: 0 8px 20px rgba(0,0,0,0.07);
+  display: flex;
+  align-items: flex-start;
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
+  cursor: default;
+}
+
+.activity-card:hover {
+  transform: translateY(-8px);
+  box-shadow: 0 20px 30px rgba(0,0,0,0.15);
+}
+
+.icon {
+  flex-shrink: 0;
+  font-size: 2.8rem;
+  color: #0057b7;
+  margin-right: 20px;
+  margin-top: 6px;
+}
+
+.content h3 {
+  margin: 0 0 6px 0;
+  font-size: 1.3rem;
+  font-weight: 700;
+  color: #111;
+}
+
+.duration {
+  font-size: 0.95rem;
+  font-weight: 600;
+  color: #007bff;
+  display: inline-block;
+  margin-bottom: 12px;
+}
+
+.content p {
+  font-size: 1rem;
+  color: #555;
+  line-height: 1.5;
+}

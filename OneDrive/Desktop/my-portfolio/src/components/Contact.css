@@ -1,0 +1,98 @@
+.contact {
+  max-width: 700px;
+  margin: 80px auto;
+  padding: 40px 25px;
+  background: #f9f9fb;
+  border-radius: 12px;
+  box-shadow: 0 8px 18px rgba(0, 0, 0, 0.07);
+  text-align: center;
+  font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+}
+
+.contact h2 {
+  font-size: 2.5rem;
+  color: #2c2c2c;
+  margin-bottom: 25px;
+}
+
+.contact-form input,
+.contact-form textarea {
+  width: 80%;
+  padding: 14px 16px;
+  margin-bottom: 20px;
+  border: 1px solid #ccc;
+  border-radius: 8px;
+  font-size: 1rem;
+  background-color: #ffffff;
+}
+
+.contact-form input:focus,
+.contact-form textarea:focus {
+  border-color: #764ba2;
+  outline: none;
+}
+
+/* Restored button style */
+.contact-form button {
+  background: linear-gradient(135deg, #764ba2, #667eea);
+  color: #fff;
+  font-weight: 700;
+  font-size: 1.1rem;
+  border-radius: 40px;
+  padding: 14px 32px;
+  text-decoration: none;
+  box-shadow: 0 6px 15px rgba(102, 126, 234, 0.4);
+  border: none;
+  transition: background 0.4s ease, transform 0.3s ease, box-shadow 0.3s ease;
+  cursor: pointer;
+}
+
+.contact-form button:hover {
+  background: linear-gradient(135deg, #667eea, #764ba2);
+  box-shadow: 0 10px 20px rgba(102, 126, 234, 0.6);
+  transform: scale(1.05);
+}
+
+.status-message {
+  margin-top: 20px;
+  font-size: 1.05rem;
+  color: green;
+}
+
+/* WhatsApp and LinkedIn buttons (styled separately) */
+.contact-buttons {
+  margin-top: 35px;
+  display: flex;
+  justify-content: center;
+  gap: 20px;
+  flex-wrap: wrap;
+}
+
+.contact-buttons a {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  text-decoration: none;
+  padding: 12px 22px;
+  border-radius: 30px;
+  font-weight: 600;
+  font-size: 1.05rem;
+  transition: background 0.3s ease, transform 0.3s ease;
+  color: #fff;
+}
+
+.whatsapp-btn {
+  background-color: #25d366;
+}
+
+.linkedin-btn {
+  background-color: #0077b5;
+}
+
+.contact-buttons a:hover {
+  transform: scale(1.05);
+}
+
+.icon {
+  font-size: 1.4rem;
+}
