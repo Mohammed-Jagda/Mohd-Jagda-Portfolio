@@ -1,10 +1,10 @@
 {
   "files": {
-    "main.css": "/Mohd/static/css/main.5d8cafc4.css",
-    "main.js": "/Mohd/static/js/main.5022d274.js",
-    "index.html": "/Mohd/index.html",
-    "main.5d8cafc4.css.map": "/Mohd/static/css/main.5d8cafc4.css.map",
-    "main.5022d274.js.map": "/Mohd/static/js/main.5022d274.js.map"
+    "main.css": "/Mohd-Jagda-Portfolio/static/css/main.5d8cafc4.css",
+    "main.js": "/Mohd-Jagda-Portfolio/static/js/main.5022d274.js",
+    "index.html": "/Mohd-Jagda-Portfolio/index.html",
+    "main.5d8cafc4.css.map": "/Mohd-Jagda-Portfolio/static/css/main.5d8cafc4.css.map",
+    "main.5022d274.js.map": "/Mohd-Jagda-Portfolio/static/js/main.5022d274.js.map"
   },
   "entrypoints": [
     "static/css/main.5d8cafc4.css",
