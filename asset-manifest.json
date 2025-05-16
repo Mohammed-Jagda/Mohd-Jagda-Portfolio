@@ -1,0 +1,13 @@
+{
+  "files": {
+    "main.css": "/MohdJagda/Portfolio.git/static/css/main.5d8cafc4.css",
+    "main.js": "/MohdJagda/Portfolio.git/static/js/main.5022d274.js",
+    "index.html": "/MohdJagda/Portfolio.git/index.html",
+    "main.5d8cafc4.css.map": "/MohdJagda/Portfolio.git/static/css/main.5d8cafc4.css.map",
+    "main.5022d274.js.map": "/MohdJagda/Portfolio.git/static/js/main.5022d274.js.map"
+  },
+  "entrypoints": [
+    "static/css/main.5d8cafc4.css",
+    "static/js/main.5022d274.js"
+  ]
+}
