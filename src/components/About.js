@@ -13,9 +13,9 @@ function About() {
         Beyond coding, I actively contribute to the tech community as a student leader and hackathon organizer, with a focus on innovation, collaboration, and delivering impactful solutions.
       </p>
       <div className="btn-wrapper">
-        <a href="/MohdJagdaCV" download className="btn-download">
-          Download My CV
-        </a>
+       <a href="/Mohd-Jagda-Portfolio/MohdJagdaResume.pdf" download className="btn-download">
+  Download My CV
+</a>
       </div>
     </section>
   );
