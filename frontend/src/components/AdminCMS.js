@@ -68,7 +68,11 @@ function AdminCMS({ onClose }) {
         setPasscodeError(data.message || 'Incorrect passcode. Try again.');
       }
     } catch (err) {
-      setPasscodeError('Cannot connect to backend server. Make sure it is running.');
+      if (window.location.protocol === 'https:' && apiUrl.startsWith('http://')) {
+        setPasscodeError('Mixed Content Blocked: On an HTTPS site, you cannot request an insecure HTTP backend. Please run the frontend locally or deploy the backend to HTTPS.');
+      } else {
+        setPasscodeError('Cannot connect to backend server. Make sure it is running.');
+      }
     }
   };
 
