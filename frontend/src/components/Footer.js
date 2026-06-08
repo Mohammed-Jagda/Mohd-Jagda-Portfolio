@@ -9,7 +9,7 @@ function Footer() {
     <footer className="footer">
       <div className="footer-socials">
         <a 
-          href="https://instagram.com/" 
+          href="https://www.instagram.com/mohammed_jagda?igsh=MTNlbnZyZjl2dnRpYg==" 
           target="_blank" 
           rel="noopener noreferrer" 
           className="social-icon-btn instagram"
