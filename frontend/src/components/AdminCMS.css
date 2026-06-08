@@ -284,6 +284,11 @@
   border-color: var(--accent-purple);
 }
 
+.form-group select option {
+  background-color: #13111c;
+  color: var(--text-primary);
+}
+
 .category-input-wrapper {
   display: flex;
   gap: 10px;
