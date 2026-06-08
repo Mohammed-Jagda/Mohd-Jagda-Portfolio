@@ -8,6 +8,7 @@ import Experience from './components/Experience';
 import Projects from './components/Projects';
 import Hackathons from './components/Hackathons';
 import Leadership from './components/Leadership';
+import Gallery from './components/Gallery';
 import Contact from './components/Contact';
 import ThemeCustomizer from './components/ThemeCustomizer';
 
@@ -26,6 +27,7 @@ function App() {
       <Projects />
       <Hackathons />
       <Leadership />
+      <Gallery />
       <Contact />
       <ThemeCustomizer />
     </div>

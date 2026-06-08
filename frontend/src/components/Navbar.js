@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import './Navbar.css';
-import { FaUser, FaGraduationCap, FaTools, FaBriefcase, FaProjectDiagram, FaCode, FaEnvelope } from 'react-icons/fa';
+import { FaUser, FaGraduationCap, FaTools, FaBriefcase, FaProjectDiagram, FaCode, FaImages, FaEnvelope } from 'react-icons/fa';
 
 function Navbar() {
   const [isModalOpen, setIsModalOpen] = useState(false);
@@ -57,6 +57,12 @@ function Navbar() {
             <span className="nav-icon-text">
               <FaCode className="nav-icon" />
               Hackathons
+            </span>
+          </a>
+          <a href="#gallery" className="nav-link">
+            <span className="nav-icon-text">
+              <FaImages className="nav-icon" />
+              Gallery
             </span>
           </a>
           <a href="#contact" className="nav-link">
