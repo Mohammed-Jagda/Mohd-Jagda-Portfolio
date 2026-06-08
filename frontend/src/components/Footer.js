@@ -1,6 +1,6 @@
 import React from 'react';
 import './Footer.css';
-import { FaInstagram, FaTwitter, FaLinkedin } from 'react-icons/fa';
+import { FaInstagram, FaXTwitter, FaLinkedin } from 'react-icons/fa6';
 
 function Footer() {
   const currentYear = new Date().getFullYear();
@@ -24,7 +24,7 @@ function Footer() {
           className="social-icon-btn x"
           title="X (formerly Twitter)"
         >
-          <FaTwitter />
+          <FaXTwitter />
         </a>
         <a 
           href="https://www.linkedin.com/in/mohammed-jagda-abb421222" 
