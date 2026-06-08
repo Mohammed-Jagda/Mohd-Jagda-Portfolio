@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useState } from 'react';
 import Navbar from './components/Navbar';
 import Hero from './components/Hero';
 import About from './components/About';
@@ -11,8 +11,12 @@ import Leadership from './components/Leadership';
 import Gallery from './components/Gallery';
 import Contact from './components/Contact';
 import ThemeCustomizer from './components/ThemeCustomizer';
+import AdminCMS from './components/AdminCMS';
+import { FaKey } from 'react-icons/fa';
 
 function App() {
+  const [isCmsOpen, setIsCmsOpen] = useState(false);
+
   return (
     <div className="app-container">
       <div className="bg-blob blob-1"></div>
@@ -30,6 +34,18 @@ function App() {
       <Gallery />
       <Contact />
       <ThemeCustomizer />
+      
+      {/* CMS trigger button */}
+      <button 
+        className="admin-trigger-btn" 
+        onClick={() => setIsCmsOpen(true)} 
+        title="Admin CMS Panel"
+      >
+        <FaKey />
+      </button>
+
+      {/* CMS Panel Modal Overlay */}
+      {isCmsOpen && <AdminCMS onClose={() => setIsCmsOpen(false)} />}
     </div>
   );
 }

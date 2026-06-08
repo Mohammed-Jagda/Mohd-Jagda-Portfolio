@@ -4,16 +4,39 @@ import galleryData from './galleryData.json';
 import { FaChevronLeft, FaChevronRight, FaTimes } from 'react-icons/fa';
 
 function Gallery() {
+  const [items, setItems] = useState(galleryData);
   const [filter, setFilter] = useState('All');
   const [lightbox, setLightbox] = useState({ isOpen: false, currentIndex: 0 });
+  const [isBackendActive, setIsBackendActive] = useState(false);
+
+  const apiUrl = process.env.REACT_APP_API_URL || 'http://localhost:5000';
+
+  // Fetch gallery items from backend, fallback to static if offline
+  useEffect(() => {
+    const fetchGallery = async () => {
+      try {
+        const response = await fetch(`${apiUrl}/api/gallery`);
+        if (response.ok) {
+          const data = await response.json();
+          setItems(data);
+          setIsBackendActive(true);
+        }
+      } catch (err) {
+        console.warn('Backend offline or unreachable. Using static galleryData fallback.', err);
+        setItems(galleryData);
+        setIsBackendActive(false);
+      }
+    };
+    fetchGallery();
+  }, [apiUrl]);
 
   // Dynamically extract categories
-  const categories = ['All', ...new Set(galleryData.map(item => item.category))];
+  const categories = ['All', ...new Set(items.map(item => item.category))];
 
   // Filter items
   const filteredItems = filter === 'All' 
-    ? galleryData 
-    : galleryData.filter(item => item.category === filter);
+    ? items 
+    : items.filter(item => item.category === filter);
 
   // Close lightbox on escape key
   useEffect(() => {
@@ -25,11 +48,10 @@ function Gallery() {
     };
     window.addEventListener('keydown', handleKeyDown);
     return () => window.removeEventListener('keydown', handleKeyDown);
-  }, [lightbox]);
+  }, [lightbox, items]);
 
   const openLightbox = (index) => {
-    // Find index of the item in the filtered list
-    const realIndex = galleryData.findIndex(item => item.id === filteredItems[index].id);
+    const realIndex = items.findIndex(item => item.id === filteredItems[index].id);
     setLightbox({
       isOpen: true,
       currentIndex: realIndex !== -1 ? realIndex : 0
@@ -43,18 +65,29 @@ function Gallery() {
   const nextImage = () => {
     setLightbox(prev => ({
       ...prev,
-      currentIndex: (prev.currentIndex + 1) % galleryData.length
+      currentIndex: (prev.currentIndex + 1) % items.length
     }));
   };
 
   const prevImage = () => {
     setLightbox(prev => ({
       ...prev,
-      currentIndex: (prev.currentIndex - 1 + galleryData.length) % galleryData.length
+      currentIndex: (prev.currentIndex - 1 + items.length) % items.length
     }));
   };
 
-  const currentItem = galleryData[lightbox.currentIndex];
+  const currentItem = items[lightbox.currentIndex];
+
+  const getImageSrc = (imageName) => {
+    if (!imageName) return '';
+    if (imageName.startsWith('http') || imageName.startsWith('data:')) {
+      return imageName;
+    }
+    if (isBackendActive) {
+      return `${apiUrl}/uploads/${imageName}`;
+    }
+    return process.env.PUBLIC_URL + '/images/gallery/' + imageName;
+  };
 
   return (
     <section className="gallery-section" id="gallery">
@@ -84,7 +117,7 @@ function Gallery() {
             <div className="gallery-img-wrapper">
               <span className="gallery-tag">{item.category}</span>
               <img 
-                src={process.env.PUBLIC_URL + '/images/gallery/' + item.image} 
+                src={getImageSrc(item.image)} 
                 alt={item.title} 
                 className="gallery-img"
                 onError={(e) => {
@@ -114,7 +147,7 @@ function Gallery() {
             </button>
             
             <img 
-              src={process.env.PUBLIC_URL + '/images/gallery/' + currentItem.image} 
+              src={getImageSrc(currentItem.image)} 
               alt={currentItem.title}
               className="lightbox-img"
               onError={(e) => {

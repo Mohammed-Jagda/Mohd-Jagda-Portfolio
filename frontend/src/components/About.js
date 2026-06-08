@@ -1,8 +1,25 @@
-import React from 'react';
+import React, { useState, useEffect } from 'react';
 import './About.css';
 import { FaDownload, FaMapMarkerAlt, FaEnvelope, FaBriefcase, FaGraduationCap } from 'react-icons/fa';
 
 function About() {
+  const [resumeUrl, setResumeUrl] = useState(process.env.PUBLIC_URL + '/MohdJagdaResume.pdf?v=2');
+  const apiUrl = process.env.REACT_APP_API_URL || 'http://localhost:5000';
+
+  useEffect(() => {
+    const checkBackendResume = async () => {
+      try {
+        const response = await fetch(`${apiUrl}/api/health`);
+        if (response.ok) {
+          setResumeUrl(`${apiUrl}/uploads/MohdJagdaResume.pdf?v=${Date.now()}`);
+        }
+      } catch (err) {
+        // Fallback to static public PDF
+      }
+    };
+    checkBackendResume();
+  }, [apiUrl]);
+
   return (
     <section className="about-section" id="about">
       <h2>About Me</h2>
@@ -21,7 +38,7 @@ function About() {
 
           <div className="btn-wrapper">
             <a
-              href={process.env.PUBLIC_URL + '/MohdJagdaResume.pdf?v=2'}
+              href={resumeUrl}
               download
               className="btn-download"
             >
