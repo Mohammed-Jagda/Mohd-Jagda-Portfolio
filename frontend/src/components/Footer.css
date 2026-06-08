@@ -1,0 +1,65 @@
+.footer {
+  background: rgba(10, 8, 20, 0.8);
+  backdrop-filter: blur(12px);
+  -webkit-backdrop-filter: blur(12px);
+  border-top: 1px solid var(--border-color);
+  padding: 40px 20px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 20px;
+  position: relative;
+  z-index: 10;
+  margin-top: 50px;
+}
+
+.footer-socials {
+  display: flex;
+  gap: 20px;
+}
+
+.social-icon-btn {
+  width: 45px;
+  height: 45px;
+  border-radius: 50%;
+  background: rgba(255, 255, 255, 0.03);
+  border: 1px solid var(--border-color);
+  color: var(--text-secondary);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 1.25rem;
+  text-decoration: none;
+  transition: var(--transition-smooth);
+}
+
+.social-icon-btn:hover {
+  color: var(--text-primary);
+  border-color: var(--accent-purple);
+  box-shadow: var(--glow-shadow);
+  transform: translateY(-3px) scale(1.05);
+}
+
+/* Specific Hover colors for brand touch */
+.social-icon-btn.instagram:hover {
+  border-color: #e1306c;
+  box-shadow: 0 0 15px rgba(225, 48, 108, 0.3);
+}
+
+.social-icon-btn.x:hover {
+  border-color: #ffffff;
+  box-shadow: 0 0 15px rgba(255, 255, 255, 0.3);
+}
+
+.social-icon-btn.linkedin:hover {
+  border-color: #0077b5;
+  box-shadow: 0 0 15px rgba(0, 119, 181, 0.3);
+}
+
+.footer-copyright {
+  font-size: 0.9rem;
+  color: var(--text-secondary);
+  text-align: center;
+  letter-spacing: 0.5px;
+}

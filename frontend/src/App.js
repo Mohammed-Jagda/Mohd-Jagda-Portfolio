@@ -12,6 +12,7 @@ import Gallery from './components/Gallery';
 import Contact from './components/Contact';
 import ThemeCustomizer from './components/ThemeCustomizer';
 import AdminCMS from './components/AdminCMS';
+import Footer from './components/Footer';
 import { FaKey } from 'react-icons/fa';
 
 function App() {
@@ -33,6 +34,7 @@ function App() {
       <Leadership />
       <Gallery />
       <Contact />
+      <Footer />
       <ThemeCustomizer />
       
       {/* CMS trigger button */}
