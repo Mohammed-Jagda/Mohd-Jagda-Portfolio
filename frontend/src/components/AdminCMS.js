@@ -15,8 +15,9 @@ function AdminCMS({ onClose }) {
   const [title, setTitle] = useState('');
   const [description, setDescription] = useState('');
   const [category, setCategory] = useState('');
-  const [customCategory, setCustomCategory] = useState('');
-  const [isCustomCategory, setIsCustomCategory] = useState(false);
+  const [sessionCategories, setSessionCategories] = useState([]);
+  const [isAddingCategory, setIsAddingCategory] = useState(false);
+  const [newCategoryName, setNewCategoryName] = useState('');
   
   const [galleryItems, setGalleryItems] = useState([]);
   const [statusMsg, setStatusMsg] = useState({ text: '', type: '' });
@@ -106,7 +107,6 @@ function AdminCMS({ onClose }) {
 
   const handleAddGalleryItem = async (e) => {
     e.preventDefault();
-    const finalCategory = isCustomCategory ? customCategory : category;
 
     if (!galleryFile) {
       showStatus('Please select an image file.', 'error');
@@ -116,7 +116,7 @@ function AdminCMS({ onClose }) {
       showStatus('Please enter an image title.', 'error');
       return;
     }
-    if (!finalCategory.trim()) {
+    if (!category.trim()) {
       showStatus('Please select or specify a category.', 'error');
       return;
     }
@@ -125,7 +125,7 @@ function AdminCMS({ onClose }) {
     formData.append('image', galleryFile);
     formData.append('title', title);
     formData.append('description', description);
-    formData.append('category', finalCategory);
+    formData.append('category', category);
     formData.append('passcode', passcode);
 
     try {
@@ -141,8 +141,7 @@ function AdminCMS({ onClose }) {
         setTitle('');
         setDescription('');
         setCategory('');
-        setCustomCategory('');
-        setIsCustomCategory(false);
+        setSessionCategories([]);
         // Refresh list
         fetchGalleryItems();
       } else {
@@ -176,8 +175,8 @@ function AdminCMS({ onClose }) {
     setStatusMsg({ text, type });
   };
 
-  // Extract unique categories for selection
-  const uniqueCategories = [...new Set(galleryItems.map(item => item.category))];
+  // Extract unique categories for selection and merge with session-created categories
+  const allCategories = [...new Set([...galleryItems.map(item => item.category), ...sessionCategories])].filter(Boolean);
 
   return (
     <div className="admin-overlay" onClick={onClose}>
@@ -293,40 +292,59 @@ function AdminCMS({ onClose }) {
 
                     <div className="form-group">
                       <label>Category</label>
-                      {!isCustomCategory ? (
+                      {!isAddingCategory ? (
                         <div className="category-input-wrapper">
                           <select
                             value={category}
-                            onChange={(e) => {
-                              if (e.target.value === 'NEW') {
-                                setIsCustomCategory(true);
-                              } else {
-                                setCategory(e.target.value);
-                              }
-                            }}
+                            onChange={(e) => setCategory(e.target.value)}
                             required
                           >
                             <option value="">-- Select Category --</option>
-                            {uniqueCategories.map(cat => (
+                            {allCategories.map(cat => (
                               <option key={cat} value={cat}>{cat}</option>
                             ))}
-                            <option value="NEW">+ Add New Category</option>
                           </select>
+                          <button
+                            type="button"
+                            className="btn-verify"
+                            style={{ padding: '12px' }}
+                            onClick={() => setIsAddingCategory(true)}
+                            title="Add Custom Category"
+                          >
+                            <FaPlus />
+                          </button>
                         </div>
                       ) : (
                         <div className="category-input-wrapper">
                           <input
                             type="text"
-                            placeholder="Enter new category name"
-                            value={customCategory}
-                            onChange={(e) => setCustomCategory(e.target.value)}
+                            placeholder="Enter new category"
+                            value={newCategoryName}
+                            onChange={(e) => setNewCategoryName(e.target.value)}
                             required
                           />
                           <button
                             type="button"
                             className="btn-verify"
-                            style={{ padding: '5px 12px', fontSize: '0.85rem' }}
-                            onClick={() => setIsCustomCategory(false)}
+                            onClick={() => {
+                              if (newCategoryName.trim()) {
+                                setSessionCategories(prev => [...prev, newCategoryName.trim()]);
+                                setCategory(newCategoryName.trim());
+                                setNewCategoryName('');
+                                setIsAddingCategory(false);
+                              }
+                            }}
+                          >
+                            Add
+                          </button>
+                          <button
+                            type="button"
+                            className="btn-verify"
+                            style={{ background: 'rgba(255,255,255,0.05)', color: 'var(--text-secondary)' }}
+                            onClick={() => {
+                              setNewCategoryName('');
+                              setIsAddingCategory(false);
+                            }}
                           >
                             Cancel
                           </button>
