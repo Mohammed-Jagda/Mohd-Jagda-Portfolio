@@ -1,7 +1,6 @@
 import React, { useState, useRef } from 'react';
 import './Contact.css';
 import { FaWhatsapp, FaLinkedin } from 'react-icons/fa';
-import emailjs from 'emailjs-com';
 
 function Contact() {
   const formRef = useRef();
@@ -24,19 +23,32 @@ function Contact() {
       return;
     }
 
-    emailjs.sendForm(
-      'service_o1cgr78',      // Replace with your EmailJS Service ID
-      'template_e6z68jd',     // Replace with your EmailJS Template ID
-      formRef.current,
-      'CfjDSJ2B2Ne-yxsKi'       // Replace with your EmailJS Public Key (User ID)
-    )
-    .then(() => {
-      setStatus('Thank you for your message! I will get back to you soon.');
+    const apiUrl = process.env.REACT_APP_API_URL || 'http://localhost:5000';
+    setStatus('Sending...');
+
+    fetch(`${apiUrl}/api/contact`, {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json'
+      },
+      body: JSON.stringify(formData)
+    })
+    .then((res) => {
+      if (!res.ok) {
+        throw new Error('Server responded with an error');
+      }
+      return res.json();
+    })
+    .then((data) => {
+      setStatus(data.message || 'Thank you for your message! I will get back to you soon.');
       setFormData({ name: '', email: '', message: '' });
-    }, () => {
+    })
+    .catch((error) => {
+      console.error('Error sending message:', error);
       setStatus('Oops! Something went wrong, please try again later.');
     });
   };
+
 
   return (
     <section className="contact" id="contact">

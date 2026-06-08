@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import './Navbar.css';
-import { FaUser, FaProjectDiagram, FaCode, FaEnvelope } from 'react-icons/fa';
+import { FaUser, FaGraduationCap, FaTools, FaBriefcase, FaProjectDiagram, FaCode, FaEnvelope } from 'react-icons/fa';
 
 function Navbar() {
   const [isModalOpen, setIsModalOpen] = useState(false);
@@ -27,6 +27,24 @@ function Navbar() {
             <span className="nav-icon-text">
               <FaUser className="nav-icon" />
               About
+            </span>
+          </a>
+          <a href="#education" className="nav-link">
+            <span className="nav-icon-text">
+              <FaGraduationCap className="nav-icon" />
+              Education
+            </span>
+          </a>
+          <a href="#skills" className="nav-link">
+            <span className="nav-icon-text">
+              <FaTools className="nav-icon" />
+              Skills
+            </span>
+          </a>
+          <a href="#experience" className="nav-link">
+            <span className="nav-icon-text">
+              <FaBriefcase className="nav-icon" />
+              Experience
             </span>
           </a>
           <a href="#projects" className="nav-link">
@@ -57,18 +75,19 @@ function Navbar() {
           style={{
             position: 'fixed',
             top: 0, left: 0, right: 0, bottom: 0,
-            backgroundColor: 'rgba(0,0,0,0.7)',
+            backgroundColor: 'rgba(0,0,0,0.85)',
             display: 'flex',
             justifyContent: 'center',
             alignItems: 'center',
-            zIndex: 1000,
+            zIndex: 2000,
             cursor: 'pointer',
+            backdropFilter: 'blur(10px)'
           }}
         >
           <img
             src={process.env.PUBLIC_URL + '/profile.png'}
             alt="Profile Large"
-            style={{ maxHeight: '90%', maxWidth: '90%', borderRadius: '8px' }}
+            style={{ maxHeight: '80%', maxWidth: '80%', borderRadius: '16px', boxShadow: '0 0 30px rgba(168, 85, 247, 0.4)' }}
           />
         </div>
       )}

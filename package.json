@@ -1,45 +1,18 @@
 {
-  "name": "my-portfolio",
-  "version": "0.1.0",
+  "name": "Mohd-Jagda-Portfolio-monorepo",
+  "version": "1.0.0",
   "private": true,
-  "homepage": "https://mohammed-jagda.github.io/Mohd-Jagda-Portfolio",
-  "dependencies": {
-    "@testing-library/dom": "^10.4.0",
-    "@testing-library/jest-dom": "^6.6.3",
-    "@testing-library/react": "^16.3.0",
-    "@testing-library/user-event": "^13.5.0",
-    "emailjs-com": "^3.2.0",
-    "gh-pages": "^6.3.0",
-    "react": "^19.1.0",
-    "react-dom": "^19.1.0",
-    "react-icons": "^5.5.0",
-    "react-scripts": "5.0.1",
-    "web-vitals": "^2.1.4"
-  },
   "scripts": {
-    "start": "react-scripts start",
-    "build": "react-scripts build",
-    "test": "react-scripts test",
-    "eject": "react-scripts eject",
-    "predeploy": "npm run build",
-    "deploy": "gh-pages -d build"
+    "install-frontend": "npm install --prefix frontend",
+    "install-backend": "npm install --prefix backend",
+    "install-all": "npm run install-frontend && npm run install-backend",
+    "start-frontend": "npm start --prefix frontend",
+    "start-backend": "npm run dev --prefix backend",
+    "dev": "concurrently \"npm run start-frontend\" \"npm run start-backend\"",
+    "build": "npm run build --prefix frontend",
+    "deploy-frontend": "npm run deploy --prefix frontend"
   },
-  "eslintConfig": {
-    "extends": [
-      "react-app",
-      "react-app/jest"
-    ]
-  },
-  "browserslist": {
-    "production": [
-      ">0.2%",
-      "not dead",
-      "not op_mini all"
-    ],
-    "development": [
-      "last 1 chrome version",
-      "last 1 firefox version",
-      "last 1 safari version"
-    ]
+  "devDependencies": {
+    "concurrently": "^8.2.2"
   }
 }
