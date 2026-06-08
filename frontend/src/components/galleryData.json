@@ -1,30 +1,16 @@
 [
   {
     "id": 1,
-    "image": "memory1.jpg",
+    "image": "hackathon_victory.png",
     "title": "Hackathon Win",
     "category": "Hackathons",
     "description": "Celebrating our first-place finish at the annual university hackathon."
   },
   {
     "id": 2,
-    "image": "memory2.jpg",
+    "image": "tech_presentation.png",
     "title": "Project Presentation",
     "category": "Tech Events",
     "description": "Presenting our web application project to university professors and industry peers."
-  },
-  {
-    "id": 3,
-    "image": "memory3.jpg",
-    "title": "Team Collaboration",
-    "category": "Fun",
-    "description": "Coding and brainstorming sessions with the developer team."
-  },
-  {
-    "id": 4,
-    "image": "memory4.jpg",
-    "title": "Campus Tech Club",
-    "category": "Campus",
-    "description": "Organizing tech workshops and coding bootcamps for student members."
   }
 ]

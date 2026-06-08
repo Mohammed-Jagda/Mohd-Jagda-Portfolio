@@ -8,28 +8,28 @@ function Footer() {
   return (
     <footer className="footer">
       <div className="footer-socials">
-        <a 
-          href="https://www.instagram.com/mohammed_jagda?igsh=MTNlbnZyZjl2dnRpYg==" 
-          target="_blank" 
-          rel="noopener noreferrer" 
+        <a
+          href="https://www.instagram.com/mohammed_jagda?igsh=MTNlbnZyZjl2dnRpYg=="
+          target="_blank"
+          rel="noopener noreferrer"
           className="social-icon-btn instagram"
           title="Instagram"
         >
           <FaInstagram />
         </a>
-        <a 
-          href="https://x.com/" 
-          target="_blank" 
-          rel="noopener noreferrer" 
+        <a
+          href="https://x.com/mohammed_jagda"
+          target="_blank"
+          rel="noopener noreferrer"
           className="social-icon-btn x"
           title="X (formerly Twitter)"
         >
           <FaXTwitter />
         </a>
-        <a 
-          href="https://www.linkedin.com/in/mohammed-jagda-abb421222" 
-          target="_blank" 
-          rel="noopener noreferrer" 
+        <a
+          href="https://www.linkedin.com/in/mohammed-jagda-abb421222"
+          target="_blank"
+          rel="noopener noreferrer"
           className="social-icon-btn linkedin"
           title="LinkedIn"
         >
