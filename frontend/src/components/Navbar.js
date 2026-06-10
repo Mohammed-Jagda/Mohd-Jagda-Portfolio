@@ -1,9 +1,18 @@
 import React, { useState } from 'react';
 import './Navbar.css';
-import { FaUser, FaBriefcase, FaProjectDiagram, FaEnvelope } from 'react-icons/fa';
+import { FaUser, FaBriefcase, FaProjectDiagram, FaEnvelope, FaBars, FaTimes } from 'react-icons/fa';
 
 function Navbar() {
   const [isModalOpen, setIsModalOpen] = useState(false);
+  const [isMenuOpen, setIsMenuOpen] = useState(false);
+
+  const toggleMenu = () => {
+    setIsMenuOpen(!isMenuOpen);
+  };
+
+  const closeMenu = () => {
+    setIsMenuOpen(false);
+  };
 
   return (
     <>
@@ -22,26 +31,31 @@ function Navbar() {
           </div>
         </div>
 
-        <nav className="navbar-nav">
-          <a href="#about" className="nav-link">
+        {/* Hamburger Menu Toggle Button */}
+        <button className="navbar-toggle" onClick={toggleMenu} aria-label="Toggle navigation">
+          {isMenuOpen ? <FaTimes /> : <FaBars />}
+        </button>
+
+        <nav className={`navbar-nav ${isMenuOpen ? 'active' : ''}`}>
+          <a href="#about" className="nav-link" onClick={closeMenu}>
             <span className="nav-icon-text">
               <FaUser className="nav-icon" />
               About
             </span>
           </a>
-          <a href="#experience" className="nav-link">
+          <a href="#experience" className="nav-link" onClick={closeMenu}>
             <span className="nav-icon-text">
               <FaBriefcase className="nav-icon" />
               Experience
             </span>
           </a>
-          <a href="#projects" className="nav-link">
+          <a href="#projects" className="nav-link" onClick={closeMenu}>
             <span className="nav-icon-text">
               <FaProjectDiagram className="nav-icon" />
               Projects
             </span>
           </a>
-          <a href="#contact" className="nav-link">
+          <a href="#contact" className="nav-link" onClick={closeMenu}>
             <span className="nav-icon-text">
               <FaEnvelope className="nav-icon" />
               Contact

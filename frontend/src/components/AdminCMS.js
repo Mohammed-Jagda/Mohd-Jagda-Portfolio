@@ -22,7 +22,24 @@ function AdminCMS({ onClose }) {
   const [galleryItems, setGalleryItems] = useState([]);
   const [statusMsg, setStatusMsg] = useState({ text: '', type: '' });
 
-  const apiUrl = process.env.REACT_APP_API_URL || 'http://localhost:5000';
+  const getApiUrl = () => {
+    if (process.env.REACT_APP_API_URL) {
+      return process.env.REACT_APP_API_URL;
+    }
+    const hostname = window.location.hostname;
+    const isLocal = hostname === 'localhost' || 
+                    hostname === '127.0.0.1' || 
+                    /^192\.168\./.test(hostname) || 
+                    /^10\./.test(hostname) || 
+                    /^172\.(1[6-9]|2[0-9]|3[0-1])\./.test(hostname);
+    
+    if (isLocal) {
+      return `http://${hostname}:5000`;
+    }
+    return 'http://localhost:5000';
+  };
+
+  const apiUrl = getApiUrl();
 
   // Load items once authenticated
   useEffect(() => {

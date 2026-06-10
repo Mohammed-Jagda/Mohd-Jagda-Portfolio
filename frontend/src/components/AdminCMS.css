@@ -422,4 +422,17 @@
     flex-direction: column;
     gap: 20px;
   }
+  .admin-trigger-btn {
+    width: 38px;
+    height: 38px;
+    bottom: 15px;
+    left: 15px;
+    font-size: 0.95rem;
+    opacity: 0.45;
+  }
+  .admin-trigger-btn:hover,
+  .admin-trigger-btn:active {
+    opacity: 1;
+    transform: scale(1.05);
+  }
 }

@@ -192,3 +192,29 @@
     font-size: 3rem;
   }
 }
+
+@media (max-width: 480px) {
+  .hero h1 {
+    font-size: 2.2rem;
+  }
+  .hero p {
+    font-size: 1rem;
+  }
+  .hero-actions {
+    flex-direction: column;
+    align-items: center;
+    width: 100%;
+  }
+  .hero-actions .btn-primary,
+  .hero-actions .btn-secondary {
+    width: 100%;
+    text-align: center;
+  }
+  .terminal-body {
+    padding: 14px;
+    min-height: 200px;
+  }
+  .terminal-body pre {
+    font-size: 0.78rem;
+  }
+}

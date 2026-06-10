@@ -118,3 +118,27 @@
   transform: translateY(-2px);
   box-shadow: 0 6px 16px rgba(0, 119, 181, 0.3);
 }
+
+
+@media (max-width: 600px) {
+  .contact {
+    padding: 30px 16px;
+    margin: 40px auto;
+    border-radius: 16px;
+  }
+  
+  .contact-buttons {
+    flex-direction: column;
+    align-items: stretch;
+    width: 100%;
+    max-width: 500px;
+    margin-left: auto;
+    margin-right: auto;
+    gap: 12px;
+  }
+
+  .contact-buttons a {
+    width: 100%;
+    justify-content: center;
+  }
+}

@@ -9,19 +9,44 @@ function Gallery() {
   const [lightbox, setLightbox] = useState({ isOpen: false, currentIndex: 0 });
   const [isBackendActive, setIsBackendActive] = useState(false);
 
-  const apiUrl = process.env.REACT_APP_API_URL || 'http://localhost:5000';
+  const getApiUrl = () => {
+    if (process.env.REACT_APP_API_URL) {
+      return process.env.REACT_APP_API_URL;
+    }
+    const hostname = window.location.hostname;
+    const isLocal = hostname === 'localhost' || 
+                    hostname === '127.0.0.1' || 
+                    /^192\.168\./.test(hostname) || 
+                    /^10\./.test(hostname) || 
+                    /^172\.(1[6-9]|2[0-9]|3[0-1])\./.test(hostname);
+    
+    if (isLocal) {
+      return `http://${hostname}:5000`;
+    }
+    return 'http://localhost:5000';
+  };
+
+  const apiUrl = getApiUrl();
 
   // Fetch gallery items from backend, fallback to static if offline
   useEffect(() => {
     const fetchGallery = async () => {
+      const controller = new AbortController();
+      const timeoutId = setTimeout(() => controller.abort(), 3000);
+
       try {
-        const response = await fetch(`${apiUrl}/api/gallery`);
+        const response = await fetch(`${apiUrl}/api/gallery`, { signal: controller.signal });
+        clearTimeout(timeoutId);
         if (response.ok) {
           const data = await response.json();
           setItems(data);
           setIsBackendActive(true);
+        } else {
+          setItems(galleryData);
+          setIsBackendActive(false);
         }
       } catch (err) {
+        clearTimeout(timeoutId);
         console.warn('Backend offline or unreachable. Using static galleryData fallback.', err);
         setItems(galleryData);
         setIsBackendActive(false);
@@ -137,10 +162,10 @@ function Gallery() {
       {/* Lightbox */}
       {lightbox.isOpen && currentItem && (
         <div className="lightbox-modal" onClick={closeLightbox}>
+          <button className="lightbox-close" onClick={closeLightbox} aria-label="Close lightbox">
+            <FaTimes />
+          </button>
           <div className="lightbox-content" onClick={(e) => e.stopPropagation()}>
-            <button className="lightbox-close" onClick={closeLightbox}>
-              <FaTimes />
-            </button>
             
             <button className="lightbox-arrow prev" onClick={prevImage}>
               <FaChevronLeft />

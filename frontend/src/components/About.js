@@ -4,16 +4,38 @@ import { FaDownload, FaMapMarkerAlt, FaEnvelope, FaBriefcase, FaGraduationCap } 
 
 function About() {
   const [resumeUrl, setResumeUrl] = useState(process.env.PUBLIC_URL + '/MohdJagdaResume.pdf?v=2');
-  const apiUrl = process.env.REACT_APP_API_URL || 'http://localhost:5000';
+  const getApiUrl = () => {
+    if (process.env.REACT_APP_API_URL) {
+      return process.env.REACT_APP_API_URL;
+    }
+    const hostname = window.location.hostname;
+    const isLocal = hostname === 'localhost' || 
+                    hostname === '127.0.0.1' || 
+                    /^192\.168\./.test(hostname) || 
+                    /^10\./.test(hostname) || 
+                    /^172\.(1[6-9]|2[0-9]|3[0-1])\./.test(hostname);
+    
+    if (isLocal) {
+      return `http://${hostname}:5000`;
+    }
+    return 'http://localhost:5000';
+  };
+
+  const apiUrl = getApiUrl();
 
   useEffect(() => {
     const checkBackendResume = async () => {
+      const controller = new AbortController();
+      const timeoutId = setTimeout(() => controller.abort(), 3000);
+
       try {
-        const response = await fetch(`${apiUrl}/api/health`);
+        const response = await fetch(`${apiUrl}/api/health`, { signal: controller.signal });
+        clearTimeout(timeoutId);
         if (response.ok) {
           setResumeUrl(`${apiUrl}/uploads/MohdJagdaResume.pdf?v=${Date.now()}`);
         }
       } catch (err) {
+        clearTimeout(timeoutId);
         // Fallback to static public PDF
       }
     };

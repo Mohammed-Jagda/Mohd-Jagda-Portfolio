@@ -1,16 +1,72 @@
 [
   {
-    "id": 1,
-    "image": "hackathon_victory.png",
-    "title": "Hackathon Win",
+    "id": 1780900547499,
+    "image": "1780900547482-957328764.jpeg",
+    "title": "Hackathon Finalist",
     "category": "Hackathons",
-    "description": "Celebrating our first-place finish at the annual university hackathon."
+    "description": "Finalists at Aavishkaar 2023 by University of Mumbai"
   },
   {
-    "id": 2,
-    "image": "tech_presentation.png",
-    "title": "Project Presentation",
-    "category": "Tech Events",
-    "description": "Presenting our web application project to university professors and industry peers."
+    "id": 1780901681052,
+    "image": "1780901681025-426043611.jpeg",
+    "title": "Major Project Submission",
+    "category": "Achievements & Accomplishments",
+    "description": "Submitted Final Year Major Project & Black Book on Blockchain Technology for the fulfilment of the requirement of the Degree"
+  },
+  {
+    "id": 1780901863819,
+    "image": "1780901863787-756584669.jpeg",
+    "title": "Aavishkar 2024",
+    "category": "Hackathons",
+    "description": "Participated in Aavishkar 2024 Hackathon Organized by University of Mumbai"
+  },
+  {
+    "id": 1780902054939,
+    "image": "1780902054924-600308140.jpeg",
+    "title": "Greeting Speech",
+    "category": "Stage",
+    "description": "Delivered a Greeting Speech as a Leader of the Orgaizing Committee of AiCodeX Hackathon 2024"
+  },
+  {
+    "id": 1780902191114,
+    "image": "1780902191095-541959936.jpeg",
+    "title": "Responsibility Speech",
+    "category": "Stage",
+    "description": "Delivered a Speech on Being Elected as the General Secretary of IEEE MHSSCE"
+  },
+  {
+    "id": 1780902285684,
+    "image": "1780902285670-705940690.jpeg",
+    "title": "Inaugral Speech",
+    "category": "Stage",
+    "description": "Deliverd the Inaugration Speech for ASPIRE 2025 (Inter-College Sports Event) as Sports Secretary  "
+  },
+  {
+    "id": 1780902538601,
+    "image": "1780902538590-393933453.jpeg",
+    "title": "Appreciation Award",
+    "category": "Achievements & Accomplishments",
+    "description": "Recieved an Award for Contribution in Entrepreneurship Developement Cell (EDC) as the Secreatary of the Committee "
+  },
+  {
+    "id": 1780902770972,
+    "image": "1780902770953-53004586.jpeg",
+    "title": "Appreciation ",
+    "category": "Achievements & Accomplishments",
+    "description": "Recieved an Appreciation Certificate for Organizing an Inter-Collegiate Hackathon sponsored by an Internation Comapany and Led a Team of 20 People and managing End-to-End Operations"
+  },
+  {
+    "id": 1780902919936,
+    "image": "1780902919919-817725016.jpeg",
+    "title": "Letter of Appointment at IEEE",
+    "category": "Achievements & Accomplishments",
+    "description": "Recieved Letter of Appointment at IEEE as the General Secreatary "
+  },
+  {
+    "id": 1780902988196,
+    "image": "1780902988174-218145331.jpeg",
+    "title": "Letter of Appointment at EDC",
+    "category": "Achievements & Accomplishments",
+    "description": "Recieved Letter of Appointment at EDC as the Secreatary"
   }
 ]
