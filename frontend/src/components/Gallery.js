@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useCallback } from 'react';
 import './Gallery.css';
 import galleryData from './galleryData.json';
 import { FaChevronLeft, FaChevronRight, FaTimes } from 'react-icons/fa';
@@ -73,7 +73,7 @@ function Gallery() {
     };
     window.addEventListener('keydown', handleKeyDown);
     return () => window.removeEventListener('keydown', handleKeyDown);
-  }, [lightbox, items]);
+  }, [lightbox, nextImage, prevImage]);
 
   const openLightbox = (index) => {
     const realIndex = items.findIndex(item => item.id === filteredItems[index].id);
@@ -87,19 +87,19 @@ function Gallery() {
     setLightbox({ isOpen: false, currentIndex: 0 });
   };
 
-  const nextImage = () => {
+  const nextImage = useCallback(() => {
     setLightbox(prev => ({
       ...prev,
       currentIndex: (prev.currentIndex + 1) % items.length
     }));
-  };
+  }, [items.length]);
 
-  const prevImage = () => {
+  const prevImage = useCallback(() => {
     setLightbox(prev => ({
       ...prev,
       currentIndex: (prev.currentIndex - 1 + items.length) % items.length
     }));
-  };
+  }, [items.length]);
 
   const currentItem = items[lightbox.currentIndex];
 

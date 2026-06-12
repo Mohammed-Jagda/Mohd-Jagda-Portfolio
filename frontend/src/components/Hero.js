@@ -6,7 +6,8 @@ function Hero() {
   const prompt = "mohammed-jagda@portfolio:~$ ";
   const command = "cat developer.json";
   
-  const jsonResponse = `{
+  useEffect(() => {
+    const jsonResponse = `{
   "name": "Jagda Mohammed Irfan",
   "role": "Software Developer Intern",
   "location": "Mumbai, India",
@@ -17,7 +18,6 @@ function Hero() {
   "interests": ["Scalability", "AI/ML", "Web3"]
 }`;
 
-  useEffect(() => {
     let index = 0;
     let currentText = prompt;
     setTerminalText(currentText);

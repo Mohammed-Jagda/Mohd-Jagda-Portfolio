@@ -1,6 +1,6 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useCallback } from 'react';
 import './AdminCMS.css';
-import { FaLock, FaUpload, FaTimes, FaImages, FaPlus, FaTrash } from 'react-icons/fa';
+import { FaLock, FaUpload, FaTimes, FaPlus, FaTrash } from 'react-icons/fa';
 
 function AdminCMS({ onClose }) {
   const [isAuthenticated, setIsAuthenticated] = useState(false);
@@ -46,7 +46,7 @@ function AdminCMS({ onClose }) {
     if (isAuthenticated) {
       fetchGalleryItems();
     }
-  }, [isAuthenticated]);
+  }, [isAuthenticated, fetchGalleryItems]);
 
   // Set timeout to clear status message
   useEffect(() => {
@@ -58,7 +58,7 @@ function AdminCMS({ onClose }) {
     }
   }, [statusMsg]);
 
-  const fetchGalleryItems = async () => {
+  const fetchGalleryItems = useCallback(async () => {
     try {
       const res = await fetch(`${apiUrl}/api/gallery`);
       if (res.ok) {
@@ -68,7 +68,7 @@ function AdminCMS({ onClose }) {
     } catch (err) {
       console.error('Failed to fetch gallery items:', err);
     }
-  };
+  }, [apiUrl]);
 
   const handleVerifyPasscode = async (e) => {
     e.preventDefault();
