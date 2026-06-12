@@ -41,6 +41,18 @@ function AdminCMS({ onClose }) {
 
   const apiUrl = getApiUrl();
 
+  const fetchGalleryItems = useCallback(async () => {
+    try {
+      const res = await fetch(`${apiUrl}/api/gallery`);
+      if (res.ok) {
+        const data = await res.json();
+        setGalleryItems(data);
+      }
+    } catch (err) {
+      console.error('Failed to fetch gallery items:', err);
+    }
+  }, [apiUrl]);
+
   // Load items once authenticated
   useEffect(() => {
     if (isAuthenticated) {
@@ -57,18 +69,6 @@ function AdminCMS({ onClose }) {
       return () => clearTimeout(timer);
     }
   }, [statusMsg]);
-
-  const fetchGalleryItems = useCallback(async () => {
-    try {
-      const res = await fetch(`${apiUrl}/api/gallery`);
-      if (res.ok) {
-        const data = await res.json();
-        setGalleryItems(data);
-      }
-    } catch (err) {
-      console.error('Failed to fetch gallery items:', err);
-    }
-  }, [apiUrl]);
 
   const handleVerifyPasscode = async (e) => {
     e.preventDefault();
