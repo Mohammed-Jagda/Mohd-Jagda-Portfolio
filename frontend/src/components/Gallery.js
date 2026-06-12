@@ -63,6 +63,24 @@ function Gallery() {
     ? items 
     : items.filter(item => item.category === filter);
 
+  const closeLightbox = () => {
+    setLightbox({ isOpen: false, currentIndex: 0 });
+  };
+
+  const nextImage = useCallback(() => {
+    setLightbox(prev => ({
+      ...prev,
+      currentIndex: (prev.currentIndex + 1) % items.length
+    }));
+  }, [items.length]);
+
+  const prevImage = useCallback(() => {
+    setLightbox(prev => ({
+      ...prev,
+      currentIndex: (prev.currentIndex - 1 + items.length) % items.length
+    }));
+  }, [items.length]);
+
   // Close lightbox on escape key
   useEffect(() => {
     const handleKeyDown = (e) => {
@@ -82,24 +100,6 @@ function Gallery() {
       currentIndex: realIndex !== -1 ? realIndex : 0
     });
   };
-
-  const closeLightbox = () => {
-    setLightbox({ isOpen: false, currentIndex: 0 });
-  };
-
-  const nextImage = useCallback(() => {
-    setLightbox(prev => ({
-      ...prev,
-      currentIndex: (prev.currentIndex + 1) % items.length
-    }));
-  }, [items.length]);
-
-  const prevImage = useCallback(() => {
-    setLightbox(prev => ({
-      ...prev,
-      currentIndex: (prev.currentIndex - 1 + items.length) % items.length
-    }));
-  }, [items.length]);
 
   const currentItem = items[lightbox.currentIndex];
 
