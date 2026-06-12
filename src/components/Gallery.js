@@ -8,26 +8,6 @@ function Gallery() {
   const [filter, setFilter] = useState('All');
   const [lightbox, setLightbox] = useState({ isOpen: false, currentIndex: 0 });
   const [isBackendActive, setIsBackendActive] = useState(false);
-
-  const getApiUrl = () => {
-    if (process.env.REACT_APP_API_URL) {
-      return process.env.REACT_APP_API_URL;
-    }
-    const hostname = window.location.hostname;
-    const isLocal = hostname === 'localhost' || 
-                    hostname === '127.0.0.1' || 
-                    /^192\.168\./.test(hostname) || 
-                    /^10\./.test(hostname) || 
-                    /^172\.(1[6-9]|2[0-9]|3[0-1])\./.test(hostname);
-    
-    if (isLocal) {
-      return `http://${hostname}:5000`;
-    }
-    return 'http://localhost:5000';
-  };
-
-  const apiUrl = getApiUrl();
-
   // Fetch gallery items from backend, fallback to static if offline
   useEffect(() => {
     const fetchGallery = async () => {
@@ -35,7 +15,7 @@ function Gallery() {
       const timeoutId = setTimeout(() => controller.abort(), 3000);
 
       try {
-        const response = await fetch(`${apiUrl}/api/gallery`, { signal: controller.signal });
+        const response = await fetch('/api/gallery', { signal: controller.signal });
         clearTimeout(timeoutId);
         if (response.ok) {
           const data = await response.json();
@@ -53,7 +33,7 @@ function Gallery() {
       }
     };
     fetchGallery();
-  }, [apiUrl]);
+  }, []);
 
   // Dynamically extract categories
   const categories = ['All', ...new Set(items.map(item => item.category))];
@@ -109,7 +89,7 @@ function Gallery() {
       return imageName;
     }
     if (isBackendActive) {
-      return `${apiUrl}/uploads/${imageName}`;
+      return `/uploads/${imageName}`;
     }
     return process.env.PUBLIC_URL + '/images/gallery/' + imageName;
   };

@@ -22,28 +22,9 @@ function AdminCMS({ onClose }) {
   const [galleryItems, setGalleryItems] = useState([]);
   const [statusMsg, setStatusMsg] = useState({ text: '', type: '' });
 
-  const getApiUrl = () => {
-    if (process.env.REACT_APP_API_URL) {
-      return process.env.REACT_APP_API_URL;
-    }
-    const hostname = window.location.hostname;
-    const isLocal = hostname === 'localhost' || 
-                    hostname === '127.0.0.1' || 
-                    /^192\.168\./.test(hostname) || 
-                    /^10\./.test(hostname) || 
-                    /^172\.(1[6-9]|2[0-9]|3[0-1])\./.test(hostname);
-    
-    if (isLocal) {
-      return `http://${hostname}:5000`;
-    }
-    return 'http://localhost:5000';
-  };
-
-  const apiUrl = getApiUrl();
-
   const fetchGalleryItems = useCallback(async () => {
     try {
-      const res = await fetch(`${apiUrl}/api/gallery`);
+      const res = await fetch('/api/gallery');
       if (res.ok) {
         const data = await res.json();
         setGalleryItems(data);
@@ -51,7 +32,7 @@ function AdminCMS({ onClose }) {
     } catch (err) {
       console.error('Failed to fetch gallery items:', err);
     }
-  }, [apiUrl]);
+  }, []);
 
   // Load items once authenticated
   useEffect(() => {
@@ -74,7 +55,7 @@ function AdminCMS({ onClose }) {
     e.preventDefault();
     setPasscodeError('');
     try {
-      const res = await fetch(`${apiUrl}/api/admin/verify-passcode`, {
+      const res = await fetch('/api/admin/verify-passcode', {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify({ passcode })
@@ -86,11 +67,7 @@ function AdminCMS({ onClose }) {
         setPasscodeError(data.message || 'Incorrect passcode. Try again.');
       }
     } catch (err) {
-      if (window.location.protocol === 'https:' && apiUrl.startsWith('http://')) {
-        setPasscodeError('Mixed Content Blocked: On an HTTPS site, you cannot request an insecure HTTP backend. Please run the frontend locally or deploy the backend to HTTPS.');
-      } else {
-        setPasscodeError('Cannot connect to backend server. Make sure it is running.');
-      }
+      setPasscodeError('Cannot connect to backend server. Make sure it is running.');
     }
   };
 
@@ -106,7 +83,7 @@ function AdminCMS({ onClose }) {
     formData.append('passcode', passcode);
 
     try {
-      const res = await fetch(`${apiUrl}/api/admin/upload-resume`, {
+      const res = await fetch('/api/admin/upload-resume', {
         method: 'POST',
         body: formData
       });
@@ -146,7 +123,7 @@ function AdminCMS({ onClose }) {
     formData.append('passcode', passcode);
 
     try {
-      const res = await fetch(`${apiUrl}/api/admin/add-gallery-item`, {
+      const res = await fetch('/api/admin/add-gallery-item', {
         method: 'POST',
         body: formData
       });
@@ -173,7 +150,7 @@ function AdminCMS({ onClose }) {
     if (!window.confirm('Are you sure you want to delete this memory from the gallery?')) return;
 
     try {
-      const res = await fetch(`${apiUrl}/api/admin/gallery-item/${id}?passcode=${passcode}`, {
+      const res = await fetch(`/api/admin/gallery-item/${id}?passcode=${passcode}`, {
         method: 'DELETE'
       });
       const data = await res.json();
@@ -402,7 +379,7 @@ function AdminCMS({ onClose }) {
                     <div key={item.id} className="cms-item-card">
                       <div className="cms-item-left">
                         <img
-                          src={`${apiUrl}/uploads/${item.image}`}
+                          src={`/uploads/${item.image}`}
                           alt={item.title}
                           className="cms-item-thumb"
                           onError={(e) => {

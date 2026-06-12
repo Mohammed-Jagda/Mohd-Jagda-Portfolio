@@ -9,7 +9,7 @@ require('dotenv').config();
 const app = express();
 const PORT = process.env.PORT || 5000;
 
-// Directories
+// Directories (all relative to project root)
 const UPLOADS_DIR = path.join(__dirname, 'uploads');
 const DATA_DIR = path.join(__dirname, 'data');
 const GALLERY_JSON = path.join(DATA_DIR, 'gallery.json');
@@ -22,10 +22,10 @@ if (!fs.existsSync(DATA_DIR)) {
   fs.mkdirSync(DATA_DIR, { recursive: true });
 }
 
-// Copy default seed images from frontend if they exist
-const frontendGalleryDir = path.join(__dirname, '..', 'frontend', 'public', 'images', 'gallery');
+// Copy default seed images from public if they exist
+const publicGalleryDir = path.join(__dirname, 'public', 'images', 'gallery');
 ['hackathon_victory.png', 'tech_presentation.png'].forEach(file => {
-  const src = path.join(frontendGalleryDir, file);
+  const src = path.join(publicGalleryDir, file);
   const dest = path.join(UPLOADS_DIR, file);
   if (fs.existsSync(src) && !fs.existsSync(dest)) {
     try {
@@ -36,8 +36,8 @@ const frontendGalleryDir = path.join(__dirname, '..', 'frontend', 'public', 'ima
   }
 });
 
-// Copy default resume from frontend if it exists
-const srcResume = path.join(__dirname, '..', 'frontend', 'public', 'MohdJagdaResume.pdf');
+// Copy default resume from public if it exists
+const srcResume = path.join(__dirname, 'public', 'MohdJagdaResume.pdf');
 const destResume = path.join(UPLOADS_DIR, 'MohdJagdaResume.pdf');
 if (fs.existsSync(srcResume) && !fs.existsSync(destResume)) {
   try {
@@ -68,7 +68,7 @@ if (!fs.existsSync(GALLERY_JSON)) {
   fs.writeFileSync(GALLERY_JSON, JSON.stringify(defaultGallery, null, 2));
 }
 
-// Multer Config
+// Multer Config — gallery images
 const storage = multer.diskStorage({
   destination: (req, file, cb) => {
     cb(null, UPLOADS_DIR);
@@ -80,6 +80,7 @@ const storage = multer.diskStorage({
 });
 const upload = multer({ storage });
 
+// Multer Config — resume (always overwrites same filename)
 const resumeStorage = multer.diskStorage({
   destination: (req, file, cb) => {
     cb(null, UPLOADS_DIR);
@@ -99,7 +100,7 @@ const allowedOrigins = [
 
 app.use(cors({
   origin: (origin, callback) => {
-    // Allow requests with no origin (like mobile apps or curl requests)
+    // Allow requests with no origin (mobile apps, curl, same-origin in prod)
     if (!origin || allowedOrigins.indexOf(origin) !== -1) {
       callback(null, true);
     } else {
@@ -109,30 +110,34 @@ app.use(cors({
   credentials: true
 }));
 app.use(express.json());
+
+// Serve uploaded files
 app.use('/uploads', express.static(UPLOADS_DIR));
 
-// Check if email configuration is set up
+// ─── Email Setup ────────────────────────────────────────────────────────────
 const isEmailConfigured = process.env.EMAIL_USER && process.env.EMAIL_PASS;
 
 let transporter;
 if (isEmailConfigured) {
   transporter = nodemailer.createTransport({
-    service: 'gmail', // Or configure other SMTP settings
+    service: 'gmail',
     auth: {
       user: process.env.EMAIL_USER,
       pass: process.env.EMAIL_PASS
     }
   });
 } else {
-  console.warn("WARNING: EMAIL_USER and EMAIL_PASS environment variables are not set. Emails will be logged to console instead of sent.");
+  console.warn('WARNING: EMAIL_USER and EMAIL_PASS not set. Emails will be logged to console.');
 }
 
-// Health check endpoint
+// ─── API Routes ──────────────────────────────────────────────────────────────
+
+// Health check
 app.get('/api/health', (req, res) => {
   res.status(200).json({ status: 'OK', message: 'Backend server is running smoothly.' });
 });
 
-// Contact form endpoint
+// Contact form
 app.post('/api/contact', async (req, res) => {
   const { name, email, message } = req.body;
 
@@ -140,17 +145,12 @@ app.post('/api/contact', async (req, res) => {
     return res.status(400).json({ success: false, message: 'Please fill all fields: name, email, and message.' });
   }
 
-  // If email configuration exists, send actual email
   if (isEmailConfigured && transporter) {
     const mailOptions = {
       from: process.env.EMAIL_USER,
-      to: process.env.EMAIL_USER, // Send to self
+      to: process.env.EMAIL_USER,
       subject: `New Portfolio Message from ${name}`,
-      text: `You have received a new message from your portfolio website:
-      
-Name: ${name}
-Email: ${email}
-Message: ${message}`,
+      text: `You have received a new message from your portfolio website:\n\nName: ${name}\nEmail: ${email}\nMessage: ${message}`,
       replyTo: email
     };
 
@@ -163,15 +163,14 @@ Message: ${message}`,
       return res.status(500).json({ success: false, message: 'Oops! Something went wrong on the server, please try again later.' });
     }
   } else {
-    // Development fallback
     console.log('--- NEW CONTACT FORM SUBMISSION ---');
     console.log(`Name: ${name}`);
     console.log(`Email: ${email}`);
     console.log(`Message: ${message}`);
     console.log('-----------------------------------');
-    return res.status(200).json({ 
-      success: true, 
-      message: 'Thank you for your message! (Development Mode: Message logged to console)' 
+    return res.status(200).json({
+      success: true,
+      message: 'Thank you for your message! (Development Mode: Message logged to console)'
     });
   }
 });
@@ -196,22 +195,18 @@ app.get('/api/gallery', (req, res) => {
   }
 });
 
-// Add new gallery item (Requires passcode in request body)
+// Add new gallery item
 app.post('/api/admin/add-gallery-item', upload.single('image'), (req, res) => {
   const { title, description, category, passcode } = req.body;
   const correctPasscode = process.env.ADMIN_PASSCODE || 'admin123';
 
   if (passcode !== correctPasscode) {
-    if (req.file) {
-      fs.unlinkSync(req.file.path);
-    }
+    if (req.file) fs.unlinkSync(req.file.path);
     return res.status(401).json({ success: false, message: 'Unauthorized.' });
   }
 
   if (!title || !category || !req.file) {
-    if (req.file) {
-      fs.unlinkSync(req.file.path);
-    }
+    if (req.file) fs.unlinkSync(req.file.path);
     return res.status(400).json({ success: false, message: 'Title, category, and image are required.' });
   }
 
@@ -232,14 +227,12 @@ app.post('/api/admin/add-gallery-item', upload.single('image'), (req, res) => {
 
     res.status(200).json({ success: true, item: newItem });
   } catch (err) {
-    if (req.file) {
-      fs.unlinkSync(req.file.path);
-    }
+    if (req.file) fs.unlinkSync(req.file.path);
     res.status(500).json({ success: false, message: 'Failed to save gallery item.' });
   }
 });
 
-// Delete a gallery item (Passcode as query parameter)
+// Delete a gallery item
 app.delete('/api/admin/gallery-item/:id', (req, res) => {
   const { id } = req.params;
   const { passcode } = req.query;
@@ -276,15 +269,13 @@ app.delete('/api/admin/gallery-item/:id', (req, res) => {
   }
 });
 
-// Upload/Update Resume PDF (Passcode in request body)
+// Upload/Update Resume PDF
 app.post('/api/admin/upload-resume', uploadResume.single('resume'), (req, res) => {
   const { passcode } = req.body;
   const correctPasscode = process.env.ADMIN_PASSCODE || 'admin123';
 
   if (passcode !== correctPasscode) {
-    if (req.file) {
-      fs.unlinkSync(req.file.path);
-    }
+    if (req.file) fs.unlinkSync(req.file.path);
     return res.status(401).json({ success: false, message: 'Unauthorized.' });
   }
 
@@ -295,6 +286,23 @@ app.post('/api/admin/upload-resume', uploadResume.single('resume'), (req, res) =
   res.status(200).json({ success: true, message: 'Resume uploaded successfully.' });
 });
 
+// ─── Serve React Build in Production ─────────────────────────────────────────
+if (process.env.NODE_ENV === 'production') {
+  app.use(express.static(path.join(__dirname, 'build')));
+
+  // Any route not matched by API routes serves React's index.html
+  app.get('*', (req, res) => {
+    res.sendFile(path.join(__dirname, 'build', 'index.html'));
+  });
+}
+
+// ─── Start Server ─────────────────────────────────────────────────────────────
 app.listen(PORT, () => {
-  console.log(`Server is running on port ${PORT}`);
+  console.log(`✅ Server running on port ${PORT}`);
+  if (process.env.NODE_ENV === 'production') {
+    console.log(`   Serving React build at http://localhost:${PORT}`);
+  } else {
+    console.log(`   API available at http://localhost:${PORT}/api`);
+    console.log(`   React dev server runs separately on port 3000`);
+  }
 });
