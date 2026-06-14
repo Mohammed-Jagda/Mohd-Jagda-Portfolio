@@ -1,32 +1,47 @@
 import React from 'react';
-import { FaTerminal, FaLaptopCode, FaDatabase, FaKeyboard, FaRobot } from 'react-icons/fa';
+import { FaTerminal, FaLaptopCode, FaServer, FaDatabase, FaBrain, FaNetworkWired, FaRobot, FaTools } from 'react-icons/fa';
 import './Skills.css';
 
 const skillCategories = [
   {
     title: "Programming Languages",
     icon: <FaTerminal />,
-    skills: ["JavaScript", "Java", "Python"]
+    skills: ["JavaScript", "Python", "Java", "Solidity"]
   },
   {
-    title: "Libraries & Frameworks",
+    title: "Frontend Development",
     icon: <FaLaptopCode />,
-    skills: ["React.js", "Next.js", "Node.js", "Express.js", "Tailwind CSS"]
+    skills: ["React.js", "Next.js", "Tailwind CSS", "XML"]
   },
   {
-    title: "Databases",
+    title: "Backend Development",
+    icon: <FaServer />,
+    skills: ["Node.js", "Express.js", "FastAPI"]
+  },
+  {
+    title: "Databases & Storage",
     icon: <FaDatabase />,
-    skills: ["MongoDB", "Firebase", "MySQL"]
+    skills: ["MongoDB", "MySQL", "Firebase"]
   },
   {
-    title: "IDEs",
-    icon: <FaKeyboard />,
-    skills: ["Antigravity", "Cursor", "VS Code", "Sublime Text"]
+    title: "AI & Computer Vision",
+    icon: <FaBrain />,
+    skills: ["Groq Vision API", "TensorFlow/CNN", "OpenCV"]
   },
   {
-    title: "AI Tools",
+    title: "Infrastructure & Systems",
+    icon: <FaNetworkWired />,
+    skills: ["Redis Caching", "SSE", "REST APIs", "Blockchain (Ethereum)"]
+  },
+  {
+    title: "Generative AI Tools",
     icon: <FaRobot />,
-    skills: ["Claude", "Grok", "ChatGPT", "Gemini"]
+    skills: ["Claude", "ChatGPT", "Grok", "Gemini"]
+  },
+  {
+    title: "Developer Tools",
+    icon: <FaTools />,
+    skills: ["VS Code", "Cursor", "Antigravity", "Git", "GitHub", "Postman"]
   }
 ];
 

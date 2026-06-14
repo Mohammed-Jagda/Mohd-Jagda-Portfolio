@@ -83,6 +83,19 @@ const Hackathons = () => {
           </div>
         ))}
       </div>
+
+      <div className="certifications-container">
+        <h3>Certifications</h3>
+        <div className="certifications-grid">
+          <div className="certification-card">
+            <span className="cert-icon"><FaAward /></span>
+            <div className="cert-info">
+              <h4>AWS Cloud Computing Foundation</h4>
+              <p>AWS Academy (Certified)</p>
+            </div>
+          </div>
+        </div>
+      </div>
     </section>
   );
 };

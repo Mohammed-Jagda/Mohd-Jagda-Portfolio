@@ -9,7 +9,7 @@ function Hero() {
   useEffect(() => {
     const jsonResponse = `{
   "name": "Jagda Mohammed Irfan",
-  "role": "Software Developer Intern",
+  "role": "Software Developer",
   "location": "Mumbai, India",
   "technologies": [
     "MERN Stack", "Python", 
@@ -48,7 +48,7 @@ function Hero() {
           <span className="hero-subtitle">WELCOME TO MY PORTFOLIO</span>
           <h1>Hi, I'm <span className="highlight-text">Mohammed Jagda</span></h1>
           <p>
-            A Full-Stack Developer and Hackathon Enthusiast passionate about building smart, secure, and scalable applications.
+            A Full-Stack (MERN) Developer and Hackathon Enthusiast passionate about building smart, secure, and scalable applications.
             I specialize in React, Next.js, Node.js, Python, and AI integration.
           </p>
           <div className="hero-actions">

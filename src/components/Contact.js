@@ -25,7 +25,9 @@ function Contact() {
 
     setStatus('Sending...');
 
-    fetch('/api/contact', {
+    const API_URL = process.env.REACT_APP_API_URL || '';
+
+    fetch(`${API_URL}/api/contact`, {
       method: 'POST',
       headers: {
         'Content-Type': 'application/json'

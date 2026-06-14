@@ -3,6 +3,7 @@ import './About.css';
 import { FaDownload, FaMapMarkerAlt, FaEnvelope, FaBriefcase, FaGraduationCap } from 'react-icons/fa';
 
 function About() {
+  const API_URL = process.env.REACT_APP_API_URL || '';
   const [resumeUrl, setResumeUrl] = useState(process.env.PUBLIC_URL + '/MohdJagdaResume.pdf?v=2');
   useEffect(() => {
     const checkBackendResume = async () => {
@@ -10,10 +11,10 @@ function About() {
       const timeoutId = setTimeout(() => controller.abort(), 3000);
 
       try {
-        const response = await fetch('/api/health', { signal: controller.signal });
+        const response = await fetch(`${API_URL}/api/health`, { signal: controller.signal });
         clearTimeout(timeoutId);
         if (response.ok) {
-          setResumeUrl(`/uploads/MohdJagdaResume.pdf?v=${Date.now()}`);
+          setResumeUrl(`${API_URL}/uploads/MohdJagdaResume.pdf?v=${Date.now()}`);
         }
       } catch (err) {
         clearTimeout(timeoutId);
@@ -21,7 +22,7 @@ function About() {
       }
     };
     checkBackendResume();
-  }, []);
+  }, [API_URL]);
 
   return (
     <section className="about-section" id="about">
@@ -29,14 +30,10 @@ function About() {
       <div className="about-grid">
         <div className="about-left">
           <p>
-            I’m Mohammed Jagda, an enthusiastic and detail-oriented Full-Stack Developer with a strong foundation in front-end and back-end technologies.
-            I specialize in building dynamic, responsive web applications using React, JavaScript, and modern frameworks.
+            I am a high-impact MERN Stack & AI Engineer with hands-on production experience building enterprise-grade platforms serving thousands of users. I specialize in architecting scalable MERN systems, integrating AI/ML pipelines, and leading cross-functional initiatives — from hackathon strategy to product delivery.
           </p>
           <p>
-            With hands-on experience in MERN stack development, API scaling, caching, and AI integrations (FastAPI, Groq Vision), I enjoy solving complex engineering challenges and delivering premium user experiences.
-          </p>
-          <p>
-            Beyond writing code, I actively contribute to the tech community as a student leader and hackathon organizer, driving collaboration, innovation, and impactful digital solutions.
+            Adept at operating with a startup mindset: shipping fast, iterating faster, and owning outcomes end-to-end. I bring rare depth across the engineering stack alongside demonstrated organizational leadership, making me immediately valuable as an individual contributor or team lead.
           </p>
 
           <div className="btn-wrapper">

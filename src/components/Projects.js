@@ -4,37 +4,37 @@ import './Projects.css';
 
 const projects = [
   {
-    title: "Real-Time Sign Language Detection",
-    tech: "Python, CNN",
-    description: "A sign recognition system trained on ASL data with CNNs, supporting real-time detection through optimized preprocessing and model training.",
-    github: "https://github.com/Jagda2003/Real-Time-Sign-Language-Detection.git",
-    icon: <FaHandPaper />
-  },
-  {
     title: "Blockchain-Based E-Voting System",
-    tech: "Solidity, Blockchain",
-    description: "A decentralized, tamper-proof e-voting system with smart contracts, cryptographic security, and real-time transparent auditing.",
+    tech: "JavaScript, Solidity, Ethereum",
+    description: "Designed a tamper-proof, decentralized voting platform on Ethereum using smart contracts, delivering verifiable election integrity. Implemented cryptographic voter anonymization protocols ensuring privacy compliance.",
     github: "https://github.com/Jagda2003/Blockchain-Based-E-Voting.git",
     icon: <FaVoteYea />
   },
   {
-    title: "EventFlow – Event Coordination Website",
-    tech: "PHP, MySQL",
-    description: "A full-stack event management system with dual admin-registrar interfaces, automated attendance tracking, and printable reports.",
-    github: "https://github.com/Jagda2003/EventFlow.git",
-    icon: <FaCalendarAlt />
+    title: "Real-Time Sign Language Detection",
+    tech: "Python, CNN, TensorFlow",
+    description: "Trained a Convolutional Neural Network on the ASL dataset with advanced feature extraction techniques, achieving high real-time gesture recognition accuracy. Built as a deployable accessibility tool.",
+    github: "https://github.com/Jagda2003/Real-Time-Sign-Language-Detection.git",
+    icon: <FaHandPaper />
   },
   {
-    title: "Venato – Employee Task Tracker",
+    title: "Venato – Employee Task Tracker & Scheduler",
     tech: "Java, XML, Firebase",
-    description: "A task tracker with scheduling, progress tracking, leave management, and real-time notifications for better collaboration.",
+    description: "Developed a full-featured Android task management system enabling role-based task assignment, monitoring, and scheduling. Integrated Firebase for real-time data sync and offline reliability.",
     github: "https://github.com/Jagda2003/Venato-Task-Tracking-and-Schedling.git",
     icon: <FaTasks />
   },
   {
+    title: "EventFlow – Event Coordination Website",
+    tech: "PHP, MySQL",
+    description: "A full-stack event management system with dual admin-registrar interfaces, automated attendance tracking, and printable reports for college event coordination.",
+    github: "https://github.com/Jagda2003/EventFlow.git",
+    icon: <FaCalendarAlt />
+  },
+  {
     title: "TrainSpacerr – Find Vacancy in Local Train",
     tech: "Flutter, Flask, YOLOv8",
-    description: "Real-time train coach vacancy monitoring with visual indicators using live camera feed and YOLO-based head count detection.",
+    description: "Real-time train coach vacancy monitoring with visual indicators using live camera feed and YOLO-based head count detection to optimize passenger distributions.",
     github: "https://github.com/Jagda2003/TrainSpacer-Using-Yolo-V8.git",
     icon: <FaTrain />
   }
@@ -43,7 +43,7 @@ const projects = [
 const Projects = () => {
   return (
     <section className="projects" id="projects">
-      <h2>Projects</h2>
+      <h2>Educational Projects</h2>
       <div className="projects-grid">
         {projects.map((project, index) => (
           <div className="project-card" key={index}>
